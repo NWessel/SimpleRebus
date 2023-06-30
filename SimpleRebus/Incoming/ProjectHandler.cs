@@ -1,7 +1,6 @@
 ﻿using Rebus.Handlers;
 using SimpleRebus.Models;
 using SimpleRebus.Services;
-using Task = System.Threading.Tasks.Task;
 
 namespace SimpleRebus.Incoming;
 

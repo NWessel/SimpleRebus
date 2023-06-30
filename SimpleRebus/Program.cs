@@ -19,9 +19,9 @@ builder.Services.AddSingleton<IMySingletonService, MyService>();
 
 builder.Services.AddRebusHandler<ProjectHandler>();
 builder.Services.AddRebus(configure => configure
-    .Transport(t => t.UseAzureServiceBus(builder.Configuration["AzureServiceBusConnectionString"], "teamplannera"))
+    .Transport(t => t.UseAzureServiceBus(builder.Configuration["AzureServiceBusConnectionString"], "teamplanner-ndw"))
     .Logging(l => l.ColoredConsole(Rebus.Logging.LogLevel.Debug))
-    .Routing(r => r.TypeBased().Map<Project>("project"))
+    .Routing(r => r.TypeBased().Map<MyEvent>("myevent"))
 );
 
 var app = builder.Build();

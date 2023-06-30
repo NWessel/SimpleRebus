@@ -64,12 +64,12 @@ public class TestingController : ControllerBase
 
     //publish simple
     [HttpPost("publish")]
-    public async System.Threading.Tasks.Task PublishSimple([FromBody] Project project)
+    public async Task PublishSimple([FromBody] MyEvent myEvent)
     {
         try
         {
             //Doesnt work
-            await _bus.Publish(project);
+            await _bus.Publish(myEvent);
         }
         catch (Exception e)
         {
@@ -80,12 +80,12 @@ public class TestingController : ControllerBase
 
     //subscrive simple
     [HttpPost("subscribe")]
-    public async System.Threading.Tasks.Task SubscribeSimple()
+    public async Task SubscribeSimple()
     {
         try
         {
             //Doesnt work
-            await _bus.Subscribe<Project>();
+            await _bus.Subscribe<MyEvent>();
         }
         catch (Exception e)
         {
@@ -96,12 +96,12 @@ public class TestingController : ControllerBase
 
     //unsubscribe simple
     [HttpPost("unsubscribe")]
-    public async System.Threading.Tasks.Task UnsubscribeSimple()
+    public async Task UnsubscribeSimple()
     {
         try
         {
             //Doesnt work
-            await _bus.Unsubscribe<Project>();
+            await _bus.Unsubscribe<MyEvent>();
         }
         catch (Exception e)
         {
