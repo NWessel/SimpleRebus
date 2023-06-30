@@ -14,17 +14,14 @@ public class TestingController : ControllerBase
         _bus = bus;
     }
 
-    [HttpPost("send")]
-    public async System.Threading.Tasks.Task SendMessage([FromBody] Project project)
+    [HttpPost("advanced/publish")]
+    public async System.Threading.Tasks.Task Publish([FromBody] Project project)
     {
         try
         {
 
             //works
             await _bus.Advanced.Topics.Publish("project", project);
-
-
-            //await _bus.Advanced.Topics.Subscribe("project");
         }
         catch (Exception e)
         {
@@ -55,6 +52,21 @@ public class TestingController : ControllerBase
         {
             //works
             await _bus.Advanced.Topics.Unsubscribe("project");
+        }
+        catch (Exception e)
+        {
+        }
+
+    }
+
+    //publish simple
+    [HttpPost("publish")]
+    public async System.Threading.Tasks.Task PublishSimple([FromBody] Project project)
+    {
+        try
+        {
+            //Doesnt work
+            await _bus.Publish(project);
         }
         catch (Exception e)
         {
