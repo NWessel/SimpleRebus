@@ -1,7 +1,7 @@
 using Rebus.Config;
-using Rebus.Routing.TypeBased;
+using Rebus.Topic;
+using SimpleRebus.Controllers;
 using SimpleRebus.Incoming;
-using SimpleRebus.Models;
 using SimpleRebus.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -17,12 +17,15 @@ builder.Services.AddTransient<IMyTransientService, MyService>();
 builder.Services.AddScoped<IMyScopedService, MyService>();
 builder.Services.AddSingleton<IMySingletonService, MyService>();
 
+
 builder.Services.AddRebusHandler<ProjectHandler>();
 builder.Services.AddRebusHandler<MyEventHandler>();
 builder.Services.AddRebus(configure => configure
     .Transport(t => t.UseAzureServiceBus(builder.Configuration["AzureServiceBusConnectionString"], "teamplanner-ndw"))
     .Logging(l => l.ColoredConsole(Rebus.Logging.LogLevel.Debug))
+    //.Options(options => options.Register<ITopicNameConvention>(c => new MyCustomTopicNameConvention()))
 );
+//builder.Services.AddSingleton<ITopicNameConvention, TopicNameConvention>();
 
 var app = builder.Build();
 
