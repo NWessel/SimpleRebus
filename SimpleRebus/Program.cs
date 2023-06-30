@@ -13,9 +13,9 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddScoped<IMyTransientService, MyService>();
+builder.Services.AddTransient<IMyTransientService, MyService>();
 builder.Services.AddScoped<IMyScopedService, MyService>();
-builder.Services.AddScoped<IMySingletonService, MyService>();
+builder.Services.AddSingleton<IMySingletonService, MyService>();
 
 builder.Services.AddRebusHandler<ProjectHandler>();
 builder.Services.AddRebus(configure => configure
@@ -25,7 +25,7 @@ builder.Services.AddRebus(configure => configure
         r.TypeBased()
             .Map<Project>("project")
             .Map<Resource>("resource")
-            .Map<SimpleRebus.Models.Task>("task")), isDefaultBus: true
+            .Map<SimpleRebus.Models.Task>("task"))
 );
 
 //builder.Services.AddRebus(configure => configure
