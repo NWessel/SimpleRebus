@@ -4,7 +4,7 @@ using SimpleRebus.Models;
 
 namespace SimpleRebus.Controllers;
 [ApiController]
-[Route("[controller]")]
+[Route("api/[controller]")]
 public class TestingController : ControllerBase
 {
     private readonly IBus _bus;
@@ -14,7 +14,7 @@ public class TestingController : ControllerBase
         _bus = bus;
     }
 
-    [HttpPost(Name = "SendMessage")]
+    [HttpPost("send")]
     public async System.Threading.Tasks.Task SendMessage([FromBody] Project project)
     {
         try
@@ -30,5 +30,19 @@ public class TestingController : ControllerBase
         {
         }
         
+    }
+
+    //Subscribe to a topic
+    [HttpPost("subscribe")]
+    public async System.Threading.Tasks.Task Subscribe()
+    {
+        try
+        {
+            await _bus.Advanced.Topics.Subscribe("project");
+        }
+        catch (Exception e)
+        {
+        }
+
     }
 }

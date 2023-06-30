@@ -2,6 +2,7 @@ using Rebus.Config;
 using Rebus.Routing.TypeBased;
 using SimpleRebus.Incoming;
 using SimpleRebus.Models;
+using SimpleRebus.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +12,8 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddScoped<IMyService, MyService>();
 
 builder.Services.AddRebusHandler<ProjectHandler>();
 builder.Services.AddRebus(configure => configure
