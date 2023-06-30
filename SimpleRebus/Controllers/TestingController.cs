@@ -32,16 +32,16 @@ public class TestingController : ControllerBase
 
     //publish simple
     [HttpPost("publish")]
-    public async Task PublishSimple([FromBody] Project myEvent)
+    public async Task PublishSimple([FromBody] MyEvent myEvent)
         => await _bus.Publish(myEvent);
 
     //subscrive simple
     [HttpPost("subscribe")]
     public async Task SubscribeSimple() 
-        => await _bus.Subscribe<Project>();
+        => await _bus.Subscribe<MyEvent>();
 
     //unsubscribe simple
     [HttpPost("unsubscribe")]
     public async Task UnsubscribeSimple()
-        => await _bus.Unsubscribe<Project>();
+        => await _bus.Unsubscribe<MyEvent>();
 }
