@@ -15,7 +15,7 @@ public class TestingController : ControllerBase
     }
 
     [HttpPost("advanced/publish")]
-    public async System.Threading.Tasks.Task Publish([FromBody] Project project)
+    public async Task Publish([FromBody] Project project)
     {
         try
         {
@@ -32,7 +32,7 @@ public class TestingController : ControllerBase
 
     //Subscribe to a topic
     [HttpPost("advanced/subscribe")]
-    public async System.Threading.Tasks.Task Subscribe()
+    public async Task Subscribe()
     {
         try
         {
@@ -48,7 +48,7 @@ public class TestingController : ControllerBase
 
     //Unsubscribe from a topic 
     [HttpPost("advanced/unsubscribe")]
-    public async System.Threading.Tasks.Task Unsubscribe()
+    public async Task Unsubscribe()
     {
         try
         {
