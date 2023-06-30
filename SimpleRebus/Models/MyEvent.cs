@@ -1,5 +1,6 @@
 ﻿namespace SimpleRebus.Models;
 
-public record MyEvent
+public class MyEvent
 {
+    public string Name { get; set; }
 }
