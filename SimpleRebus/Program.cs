@@ -21,22 +21,8 @@ builder.Services.AddRebusHandler<ProjectHandler>();
 builder.Services.AddRebus(configure => configure
     .Transport(t => t.UseAzureServiceBus(builder.Configuration["AzureServiceBusConnectionString"], "teamplannera"))
     .Logging(l => l.ColoredConsole(Rebus.Logging.LogLevel.Debug))
-    .Routing(r => 
-        r.TypeBased()
-            .Map<Project>("project")
-            .Map<Resource>("resource")
-            .Map<SimpleRebus.Models.Task>("task"))
+    .Routing(r => r.TypeBased().Map<Project>("project"))
 );
-
-//builder.Services.AddRebus(configure => configure
-//    .Transport(t => t.UseAzureServiceBus(builder.Configuration["AzureServiceBusConnectionString"], "teamplannerb"))
-//    .Logging(l => l.ColoredConsole(Rebus.Logging.LogLevel.Debug))
-//    .Routing(r =>
-//        r.TypeBased()
-//            .Map<Project>("project")
-//            .Map<Resource>("resource")
-//            .Map<SimpleRebus.Models.Task>("task"))
-//);
 
 var app = builder.Build();
 
