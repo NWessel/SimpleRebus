@@ -45,4 +45,18 @@ public class TestingController : ControllerBase
         }
 
     }
+
+    //Unsubscribe from a topic 
+    [HttpPost("unsubscribe")]
+    public async System.Threading.Tasks.Task Unsubscribe()
+    {
+        try
+        {
+            await _bus.Advanced.Topics.Unsubscribe("project");
+        }
+        catch (Exception e)
+        {
+        }
+
+    }
 }

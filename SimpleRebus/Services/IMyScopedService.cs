@@ -1,6 +1,6 @@
 ﻿namespace SimpleRebus.Services;
 
-public interface IMyService
+public interface IMyScopedService
 {
     Task<List<string>> ListAsync();
 }

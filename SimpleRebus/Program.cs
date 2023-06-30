@@ -13,7 +13,9 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddScoped<IMyService, MyService>();
+builder.Services.AddScoped<IMyTransientService, MyService>();
+builder.Services.AddScoped<IMyScopedService, MyService>();
+builder.Services.AddScoped<IMySingletonService, MyService>();
 
 builder.Services.AddRebusHandler<ProjectHandler>();
 builder.Services.AddRebus(configure => configure

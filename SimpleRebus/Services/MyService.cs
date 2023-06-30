@@ -1,6 +1,6 @@
 ﻿namespace SimpleRebus.Services;
 
-public class MyService : IMyService
+public class MyService : IMyTransientService, IMyScopedService, IMySingletonService
 {
     public Task<List<string>> ListAsync()
     {

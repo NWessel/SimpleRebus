@@ -7,16 +7,22 @@ namespace SimpleRebus.Incoming;
 
 public class ProjectHandler : IHandleMessages<Project>
 {
-    private readonly IMyService _myService;
+    private readonly IMyTransientService _myTransientService;
+    private readonly IMyScopedService _myScopedService;
+    private readonly IMySingletonService _mySingletonService;
 
-    public ProjectHandler(IMyService myService)
+    public ProjectHandler(IMyTransientService myTransientService, IMyScopedService myScopedService, IMySingletonService mySingletonService)
     {
-        _myService = myService;
+        _myTransientService = myTransientService;
+        _myScopedService = myScopedService;
+        _mySingletonService = mySingletonService;
     }
 
     public async Task Handle(Project message)
     {
-        var list = await _myService.ListAsync();
+        var listFromTransient = await _myTransientService.ListAsync();
+        var listFromScoped = await _myScopedService.ListAsync();
+        var listFromSingleton = await _mySingletonService.ListAsync();
         Console.WriteLine($"Project: {message.Name}");
     }
 }
