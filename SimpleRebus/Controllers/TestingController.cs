@@ -19,18 +19,12 @@ public class TestingController : ControllerBase
     {
         try
         {
-            //Doesn't work
-            await _bus.Publish(project);
 
             //works
             await _bus.Advanced.Topics.Publish("project", project);
 
 
-            //Doesn't work
-            await _bus.Subscribe<Project>();
-
-            //works
-            await _bus.Advanced.Topics.Subscribe("project");
+            //await _bus.Advanced.Topics.Subscribe("project");
         }
         catch (Exception e)
         {
