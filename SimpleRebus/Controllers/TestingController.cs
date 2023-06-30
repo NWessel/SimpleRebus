@@ -25,6 +25,7 @@ public class TestingController : ControllerBase
         }
         catch (Exception e)
         {
+            throw;
         }
         
     }
@@ -40,6 +41,7 @@ public class TestingController : ControllerBase
         }
         catch (Exception e)
         {
+            throw;
         }
 
     }
@@ -55,6 +57,7 @@ public class TestingController : ControllerBase
         }
         catch (Exception e)
         {
+            throw;
         }
 
     }
@@ -70,6 +73,7 @@ public class TestingController : ControllerBase
         }
         catch (Exception e)
         {
+            throw;
         }
 
     }
@@ -85,6 +89,7 @@ public class TestingController : ControllerBase
         }
         catch (Exception e)
         {
+            throw;
         }
 
     }
@@ -100,6 +105,7 @@ public class TestingController : ControllerBase
         }
         catch (Exception e)
         {
+            throw;
         }
 
     }
