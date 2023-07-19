@@ -17,15 +17,24 @@ builder.Services.AddTransient<IMyTransientService, MyService>();
 builder.Services.AddScoped<IMyScopedService, MyService>();
 builder.Services.AddSingleton<IMySingletonService, MyService>();
 
-
+builder.Services.AddSingleton<ITopicNameConvention, MyCustomTopicNameConvention>();
 builder.Services.AddRebusHandler<ProjectHandler>();
 builder.Services.AddRebusHandler<MyEventHandler>();
+
+
 builder.Services.AddRebus(configure => configure
-    .Transport(t => t.UseAzureServiceBus(builder.Configuration["AzureServiceBusConnectionString"], "teamplanner-ndw"))
+    .Transport(t => t.UseAzureServiceBus(builder.Configuration["AzureServiceBusConnectionString"], "teamplannera-ndw"))
     .Logging(l => l.ColoredConsole(Rebus.Logging.LogLevel.Debug))
-    //.Options(options => options.Register<ITopicNameConvention>(c => new MyCustomTopicNameConvention()))
+    .Options(options => options.Decorate<ITopicNameConvention>(c => new MyCustomTopicNameConvention()))
 );
-//builder.Services.AddSingleton<ITopicNameConvention, TopicNameConvention>();
+
+builder.Services.AddRebus(configure => configure
+    .Transport(t => t.UseAzureServiceBus(builder.Configuration["AzureServiceBusConnectionString"], "teamplannerb-ndw"))
+    .Logging(l => l.ColoredConsole(Rebus.Logging.LogLevel.Debug)), isDefaultBus: false
+);
+
+
+
 
 var app = builder.Build();
 
