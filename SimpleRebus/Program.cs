@@ -25,12 +25,16 @@ builder.Services.AddRebusHandler<MyEventHandler>();
 builder.Services.AddRebus(configure => configure
     .Transport(t => t.UseAzureServiceBus(builder.Configuration["AzureServiceBusConnectionString"], "teamplannera-ndw"))
     .Logging(l => l.ColoredConsole(Rebus.Logging.LogLevel.Debug))
-    .Options(options => options.Decorate<ITopicNameConvention>(c => new MyCustomTopicNameConvention()))
+    .Options(options => options.Decorate<ITopicNameConvention>(c => new MyCustomTopicNameConvention())),
+    isDefaultBus: true,
+    key: "PrimaryBus"
 );
 
 builder.Services.AddRebus(configure => configure
     .Transport(t => t.UseAzureServiceBus(builder.Configuration["AzureServiceBusConnectionString"], "teamplannerb-ndw"))
-    .Logging(l => l.ColoredConsole(Rebus.Logging.LogLevel.Debug)), isDefaultBus: false
+    .Logging(l => l.ColoredConsole(Rebus.Logging.LogLevel.Debug)), 
+    isDefaultBus: false,
+    key: "SecondaryBus"
 );
 
 

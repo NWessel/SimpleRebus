@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Rebus.Bus;
+using Rebus.ServiceProvider;
 using SimpleRebus.Models;
 
 namespace SimpleRebus.Controllers;
@@ -8,10 +9,13 @@ namespace SimpleRebus.Controllers;
 public class TestingController : ControllerBase
 {
     private readonly IBus _bus;
+    private readonly IBusRegistry _busses;
 
-    public TestingController(IBus bus)
+    public TestingController(IBus bus, IBusRegistry busses)
     {
         _bus = bus;
+        _busses = busses;
+        var x = busses.GetBus("SecondaryBus");
     }
     //Publish a message
     [HttpPost("advanced/publish")]
