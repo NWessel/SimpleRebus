@@ -17,35 +17,40 @@ public class TestingController : ControllerBase
         _busses = busses;
         var x = busses.GetBus("SecondaryBus");
     }
-    //Publish a message
-    [HttpPost("advanced/publish")]
-    public async Task Publish([FromBody] MyEvent myEvent)
-        => await _bus.Advanced.Topics.Publish("myeventthing", myEvent);
+    ////Publish a message
+    //[HttpPost("advanced/publish")]
+    //public async Task Publish([FromBody] MyEvent myEvent)
+    //    => await _bus.Advanced.Topics.Publish("myeventthing", myEvent);
 
-    //Subscribe to a topic
-    [HttpPost("advanced/subscribe")]
-    public async Task Subscribe()
-        => await _bus.Advanced.Topics.Subscribe("myeventthing");
+    ////Subscribe to a topic
+    //[HttpPost("advanced/subscribe")]
+    //public async Task Subscribe()
+    //    => await _bus.Advanced.Topics.Subscribe("myeventthing");
 
-    //Unsubscribe from a topic 
-    [HttpPost("advanced/unsubscribe")]
-    public async Task Unsubscribe() =>
-        await _bus.Advanced.Topics.Unsubscribe("myeventthing");
+    ////Unsubscribe from a topic 
+    //[HttpPost("advanced/unsubscribe")]
+    //public async Task Unsubscribe() =>
+    //    await _bus.Advanced.Topics.Unsubscribe("myeventthing");
 
-    // BELOW DOES NOT WORK - Trying to figure out why
 
     //publish simple
     [HttpPost("publish")]
     public async Task PublishSimple([FromBody] MyEvent myEvent)
-        => await _bus.Publish(myEvent);
+    {
+          await _bus.Publish(myEvent);
+    }
 
     //subscrive simple
     [HttpPost("subscribe")]
-    public async Task SubscribeSimple() 
-        => await _bus.Subscribe<MyEvent>();
+    public async Task SubscribeSimple()
+    {
+        _busses.GetAllKeys().ToList().ForEach(async x => await _busses.GetBus(x).Subscribe<MyEvent>());
+    }
 
     //unsubscribe simple
     [HttpPost("unsubscribe")]
-    public async Task UnsubscribeSimple()
-        => await _bus.Unsubscribe<MyEvent>();
+    public async Task UnsubscribeSimple() 
+    {
+        _busses.GetAllKeys().ToList().ForEach(async x => await _busses.GetBus(x).Unsubscribe<MyEvent>());
+    }
 }

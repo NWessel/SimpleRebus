@@ -32,7 +32,8 @@ builder.Services.AddRebus(configure => configure
 
 builder.Services.AddRebus(configure => configure
     .Transport(t => t.UseAzureServiceBus(builder.Configuration["AzureServiceBusConnectionString"], "teamplannerb-ndw"))
-    .Logging(l => l.ColoredConsole(Rebus.Logging.LogLevel.Debug)), 
+    .Logging(l => l.ColoredConsole(Rebus.Logging.LogLevel.Debug))
+    .Options(options => options.Decorate<ITopicNameConvention>(c => new MyCustomTopicNameConvention())),
     isDefaultBus: false,
     key: "SecondaryBus"
 );
